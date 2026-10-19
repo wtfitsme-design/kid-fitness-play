@@ -32,6 +32,17 @@
     'throw:side-throw':'throw-side-throw',
     'throw:step-throw':'throw-step-throw'
   };
+  leafAsset['core:four-point']='core-four-point-art2';
+  leafAsset['core:crawl-forward']='core-crawl-forward-art2';
+  leafAsset['core:bear-steps']='core-bear-steps-art2';
+  // 为所有叶子补齐独立 WebP 资源映射，避免缺少显式条目时回退成 SVG。
+  // 文件名与叶子 id 一一对应，例如 catch:low-toss -> catch-low-toss。
+  Object.entries(window.V2?.skills||{}).forEach(([skill,data])=>{
+    data.branches.flatMap(branch=>branch.leaves).forEach(leaf=>{
+      const key=`${skill}:${leaf.id}`;
+      if(!leafAsset[key]) leafAsset[key]=`${skill}-${leaf.id}`;
+    });
+  });
   const action={
     'foot-stop':[['球滚来','low',112,185,252,197],['脚靠近','low',122,185,218,197],['脚底停球','low',132,185,181,190],['抬脚抱住','hold',135,174,162,122]],
     'push-ball':[['脚内侧对球','low',112,185,183,195],['轻推一步','reach',126,174,215,195],['追上球','reach',140,174,245,195],['近处停球','low',148,185,225,195]],
