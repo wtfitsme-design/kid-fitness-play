@@ -27,6 +27,7 @@
       <div class="section-card today-card">
         <div class="section-head"><div><span class="section-kicker">STEP 2</span><h3 id="todaySkillName">篮球控球</h3></div><button id="openTreeFromTrain" class="text-button">查看技能树 →</button></div>
         <p id="todaySkillIntro" class="muted"></p>
+        <div class="selection-help"><strong id="selectedLeafCount">已选 1 片</strong><span>每天可选 1–3 片叶子；只练这一项技能</span></div>
         <div id="todayPath" class="today-path"></div>
         <div class="duration-row"><label for="duration">本次时长</label><select id="duration"><option value="25">轻量 25 分钟</option><option value="40" selected>标准 40 分钟</option><option value="50">加长 50 分钟</option></select></div>
         <button id="startSession" class="primary-button">生成今天的单技能训练</button>
@@ -38,14 +39,14 @@
       <div class="page-heading"><p class="eyebrow">SKILL TREE</p><h2 id="treeTitle">一项技能，一棵树</h2><p>底部叶子是最小能力。前置叶子点亮后，下一片叶子会解锁。</p></div>
       <div class="section-card tree-select-card"><label for="treeSkillSelect">当前技能</label><select id="treeSkillSelect"></select><div id="treeLegend" class="tree-legend"><span><i class="legend-dot done"></i>已点亮</span><span><i class="legend-dot ready"></i>可练习</span><span><i class="legend-dot locked"></i>待解锁</span></div></div>
       <div id="skillTree" class="skill-tree" aria-live="polite"></div>
-      <div id="leafDetail" class="leaf-detail" hidden></div>
     </section>
 
     <section id="recordView" class="view" hidden aria-labelledby="recordTitle">
       <div class="page-heading"><p class="eyebrow">MY GROWTH</p><h2 id="recordTitle">成长记录</h2><p>每片叶子都可以留下一个瞬间，孩子可以回头看自己已经会了什么。</p></div>
+      <div class="section-card profile-card"><div class="section-head"><div><span class="section-kicker">PROFILE</span><h3>当前使用者</h3></div><span class="muted">本机保存</span></div><div class="profile-controls"><label for="profileSelect">档案<select id="profileSelect"></select></label><button id="newProfile" class="secondary-button" type="button">新增使用者</button></div><p class="muted profile-note">同一手机可以建立多个档案，记录互相独立；换设备请使用导出和导入。</p></div>
       <div id="recordSummary" class="record-summary"></div>
       <div id="recordList" class="record-list"></div>
-      <details class="section-card backup-card"><summary>备份和恢复</summary><div class="details-body"><p class="muted">记录保存在当前浏览器。换手机前可导出，再在新设备导入。</p><div class="button-row"><button id="exportData" class="secondary-button">导出记录</button><label class="secondary-button file-label">导入记录<input id="importData" type="file" accept="application/json,.json"></label></div><p id="backupStatus" class="status-text"></p></div></details>
+      <details class="section-card backup-card"><summary>备份和恢复</summary><div class="details-body"><p class="muted">记录保存在当前浏览器的本地存储中，不会自动同步到其他手机。可导出当前档案，再在新设备导入。</p><div class="button-row"><button id="exportData" class="secondary-button">导出当前档案</button><label class="secondary-button file-label">导入到当前档案<input id="importData" type="file" accept="application/json,.json"></label></div><p id="backupStatus" class="status-text"></p></div></details>
     </section>
 
     <section id="guideView" class="view" hidden aria-labelledby="guideTitle">
@@ -57,6 +58,7 @@
     </section>
   </main>
 </div>
+<div id="leafDetail" class="leaf-detail" hidden></div>
 <nav class="bottom-nav" aria-label="主导航"><button data-view="trainView" aria-current="page"><span>◉</span>训练</button><button data-view="treeView"><span>◇</span>技能树</button><button data-view="recordView"><span>▣</span>记录</button><button data-view="guideView"><span>☰</span>陪练</button></nav>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body>
