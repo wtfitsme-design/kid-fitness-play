@@ -6,6 +6,9 @@
   // Each leaf has its own four-step asset. The short prefix mirrors the folder
   // naming convention (throwing is kept as "throw" for leaf assets).
   const leafPrefix={basketball:'basketball',throw:'throw',catch:'catch',kick:'kick',rope:'rope',strike:'strike',core:'core'};
+  // Keep only the generated sequences whose subject and props were verified.
+  // Other skills use the semantic vector storyboard below so every leaf has its
+  // own action cues instead of inheriting a repeated or mismatched picture.
   const leafAsset={
     'basketball:hold':'basketball-hold-v3',
     'basketball:bounce-catch':'basketball-bounce-catch',
@@ -28,32 +31,6 @@
     'throw:roll-target':'throw-roll-target',
     'throw:side-throw':'throw-side-throw',
     'throw:step-throw':'throw-step-throw'
-    ,'throw:follow-through':'throw-follow-through'
-    ,'throw:choose-target':'throw-choose-target'
-    ,'catch:ready-hands':'catch-ready-hands'
-    ,'catch:stop-roll':'catch-stop-roll'
-    ,'catch:hug-ball':'catch-hug-ball'
-    ,'catch:low-toss':'catch-low-toss'
-    ,'catch:bounce-catch':'catch-bounce-catch'
-    ,'catch:move-catch':'catch-move-catch'
-    ,'rope:small-jump':'rope-small-jump'
-    ,'rope:ground-rope':'rope-ground-rope'
-    ,'rope:rope-step':'rope-rope-step'
-    ,'rope:one-jump':'rope-one-jump'
-    ,'rope:reset-rope':'rope-reset-rope'
-    ,'rope:two-jump':'rope-two-jump'
-    ,'strike:hold-paddle':'strike-hold-paddle'
-    ,'strike:air-swing':'strike-air-swing'
-    ,'strike:tap-ball':'strike-tap-ball'
-    ,'strike:roll-hit':'strike-roll-hit'
-    ,'strike:drop-hit':'strike-drop-hit'
-    ,'strike:aim-hit':'strike-aim-hit'
-    ,'core:four-point':'core-four-point'
-    ,'core:crawl-forward':'core-crawl-forward'
-    ,'core:bear-steps':'core-bear-steps'
-    ,'core:crawl-tunnel':'core-crawl-tunnel'
-    ,'core:carry-ball':'core-carry-ball'
-    ,'core:reset-body':'core-reset-body'
   };
   const action={
     'foot-stop':[['球滚来','low',112,185,252,197],['脚靠近','low',122,185,218,197],['脚底停球','low',132,185,181,190],['抬脚抱住','hold',135,174,162,122]],
@@ -86,7 +63,7 @@
     'roll-hit':[['滚球过来','low',112,185,245,197],['拍子下沉','reach',126,174,230,160],['拍面碰球','reach',140,174,245,180],['球滚向前','reach',150,174,275,180]],
     'drop-hit':[['球举高','hold',112,174,220,135],['松手落球','reach',126,174,220,165],['拍子下移','reach',140,174,230,180],['轻轻击中','reach',150,174,250,180]],
     'aim-hit':[['看准目标','hold',112,174,280,150],['肩膀转向','reach',126,174,260,145],['向前挥拍','reach',140,174,275,145],['球飞向目标','reach',150,174,300,145]],
-    'four-point':[['四点支撑','low',112,185,180,195],['抬起右手','low',126,185,180,195],['抬起左脚','low',140,185,180,195],['回到稳定','low',150,185,180,195]],
+    'four-point':[['双手双膝着垫','low',112,185,180,195],['手在肩下','low',126,185,180,195],['膝在髋下','low',140,185,180,195],['平稳呼吸','low',150,185,180,195]],
     'crawl-forward':[['手膝着地','low',112,185,180,195],['右手左膝','low',126,185,195,195],['左手右膝','low',140,185,210,195],['爬到终点','low',150,185,240,195]],
     'bear-steps':[['屁股抬高','low',112,185,180,195],['手脚交替','low',126,185,198,195],['向前走三步','low',140,185,220,195],['停下站稳','low',150,185,240,195]],
     'crawl-tunnel':[['看见隧道','low',112,185,260,195],['手膝前进','low',126,185,260,195],['穿过中间','low',140,185,260,195],['到出口','low',150,185,295,195]],
@@ -103,15 +80,17 @@
   function ball(x,y,c='#d68455',r=13){return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="#6f4f3c" stroke-width="2"/><path d="M${x-r+2} ${y}h${(r-2)*2}M${x-5} ${y-r+3}q10 12 1 24M${x+5} ${y-r+3}q-8 12 0 24" fill="none" stroke="#fff1d6" stroke-width="1.6"/>`}
   function scene(skill,id,s,p){
     let out='';
+    if(skill==='core'){
+      if(id==='carry-ball')return `<rect x="250" y="151" width="50" height="50" rx="8" fill="#f7c85b" stroke="#b87d36" stroke-width="3"/>${ball(s[4],s[5],'#e19a62',12)}`;
+      if(id==='crawl-tunnel')return `<path d="M220 202v-66h72v66M226 136q31-30 62 0" fill="none" stroke="#ef9c5c" stroke-width="8"/>`;
+      return '';
+    }
     if(['basketball','catch'].includes(skill))out+=ball(s[4],s[5],skill==='catch'?'#e18d5b':'#4b94a4');
     if(skill==='kick')out+=ball(s[4],s[5],'#d78a5d',12);
     if(skill==='throw')out+=`<rect x="${s[4]-20}" y="${s[5]-37}" width="42" height="42" rx="8" fill="#f7c85b" stroke="#b87d36" stroke-width="3"/><path d="M${s[4]-13} ${s[5]-16}h28" stroke="#fff4bf" stroke-width="3"/>`;
     if(skill==='rope')out+=`<path d="M${s[2]-42} ${s[3]-18}Q${s[2]+8} ${s[3]-76} ${s[2]+52} ${s[3]-10}Q${s[2]+18} ${s[3]+34} ${s[2]-42} ${s[3]-18}" fill="none" stroke="#9a6a9b" stroke-width="5"/>`;
     if(skill==='strike')out+=`<path d="M${s[2]+13} ${s[3]-77}l58 24-10 18-58-25z" fill="#ea9a55" stroke="#8f5b3c" stroke-width="3"/><circle cx="${s[4]}" cy="${s[5]}" r="11" fill="#e68e54" stroke="#80503b" stroke-width="2"/>`;
-    if(skill==='core')out+=`<rect x="65" y="178" width="220" height="25" rx="12" fill="#9fc5db" stroke="#5f8ca4" stroke-width="3"/>`;
     if(id==='kick-gate'||id==='turn-kick')out+=`<path d="M${s[4]+9} ${s[5]-25}v-42h62v42M${s[4]+40} ${s[5]-67}v42" fill="none" stroke="#e65e50" stroke-width="4"/>`;
-    if(id==='crawl-tunnel')out+=`<path d="M220 202v-66h72v66M226 136q31-30 62 0" fill="none" stroke="#ef9c5c" stroke-width="8"/>`;
-    if(id==='carry-ball')out+=`<rect x="250" y="151" width="50" height="50" rx="8" fill="#f7c85b" stroke="#b87d36" stroke-width="3"/>`;
     return out;
   }
   function svg(skill,leaf,step){
