@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1f6c58">
+  <title>小小运动家 2.0 · 技能树</title>
+  <link rel="stylesheet" href="v2.css">
+  <script src="v2-content.js" defer></script>
+  <script src="v2-illustrations.js" defer></script>
+  <script src="v2-app.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div><span class="eyebrow">MOVE & GROW</span><h1>小小运动家<span class="dot"></span></h1></div>
+    <span class="version-pill">2.0 预览</span>
+  </header>
+
+  <main>
+    <section id="trainView" class="view" aria-labelledby="trainTitle">
+      <div class="hero-copy"><p class="eyebrow">今天只练一个技能</p><h2 id="trainTitle">让一片叶子慢慢长出来</h2><p>选择一项技能，围绕一条小路径重复练习。做会了就点亮叶子，留下孩子自己的话。</p></div>
+      <div class="section-card skill-picker-card">
+        <div class="section-head"><div><span class="section-kicker">STEP 1</span><h3>选择今天的技能</h3></div><span id="skillProgress" class="muted"></span></div>
+        <div id="skillPicker" class="skill-picker"></div>
+      </div>
+      <div class="section-card today-card">
+        <div class="section-head"><div><span class="section-kicker">STEP 2</span><h3 id="todaySkillName">篮球控球</h3></div><button id="openTreeFromTrain" class="text-button">查看技能树 →</button></div>
+        <p id="todaySkillIntro" class="muted"></p>
+        <div id="todayPath" class="today-path"></div>
+        <div class="duration-row"><label for="duration">本次时长</label><select id="duration"><option value="25">轻量 25 分钟</option><option value="40" selected>标准 40 分钟</option><option value="50">加长 50 分钟</option></select></div>
+        <button id="startSession" class="primary-button">生成今天的单技能训练</button>
+      </div>
+      <div id="sessionPanel" class="section-card session-card" hidden></div>
+    </section>
+
+    <section id="treeView" class="view" hidden aria-labelledby="treeTitle">
+      <div class="page-heading"><p class="eyebrow">SKILL TREE</p><h2 id="treeTitle">一项技能，一棵树</h2><p>底部叶子是最小能力。前置叶子点亮后，下一片叶子会解锁。</p></div>
+      <div class="section-card tree-select-card"><label for="treeSkillSelect">当前技能</label><select id="treeSkillSelect"></select><div id="treeLegend" class="tree-legend"><span><i class="legend-dot done"></i>已点亮</span><span><i class="legend-dot ready"></i>可练习</span><span><i class="legend-dot locked"></i>待解锁</span></div></div>
+      <div id="skillTree" class="skill-tree" aria-live="polite"></div>
+      <div id="leafDetail" class="leaf-detail" hidden></div>
+    </section>
+
+    <section id="recordView" class="view" hidden aria-labelledby="recordTitle">
+      <div class="page-heading"><p class="eyebrow">MY GROWTH</p><h2 id="recordTitle">成长记录</h2><p>每片叶子都可以留下一个瞬间，孩子可以回头看自己已经会了什么。</p></div>
+      <div id="recordSummary" class="record-summary"></div>
+      <div id="recordList" class="record-list"></div>
+      <details class="section-card backup-card"><summary>备份和恢复</summary><div class="details-body"><p class="muted">记录保存在当前浏览器。换手机前可导出，再在新设备导入。</p><div class="button-row"><button id="exportData" class="secondary-button">导出记录</button><label class="secondary-button file-label">导入记录<input id="importData" type="file" accept="application/json,.json"></label></div><p id="backupStatus" class="status-text"></p></div></details>
+    </section>
+
+    <section id="guideView" class="view" hidden aria-labelledby="guideTitle">
+      <div class="page-heading"><p class="eyebrow">FOR THE GROWN-UPS</p><h2 id="guideTitle">陪练备忘</h2></div>
+      <details class="section-card" open><summary>单技能怎么练</summary><div class="details-body prose"><p>一次只围绕一个技能，主路径重复三到四轮；孩子状态好，再加一个“自由玩法”。不在同一晚把多个技能排成考核。</p><p>一片叶子可以分几次完成。只要动作更稳定、孩子愿意再试，就可以记录为进步。</p></div></details>
+      <details class="section-card"><summary>叶子什么时候点亮</summary><div class="details-body prose"><p>孩子在轻松状态下能完成这片叶子的任务，并且知道下一次怎么开始，就可以点亮。点亮代表“目前会做”，不是永久达标。</p><p>如果过几周又不稳，回到上一片叶子复习即可。</p></div></details>
+      <details class="section-card"><summary>孩子害怕失败时</summary><div class="details-body prose"><p>先承认难受，再给一个更小的选择：“你想把球放近一点，还是先看我做一次？”把成功标准改成“尝试了一个步骤”，不要要求一次连续完成。</p><p>大人可以自然示范失误、调整和再试；记录时写策略，不只写结果。</p></div></details>
+      <details class="section-card"><summary>安全和器材</summary><div class="details-body prose"><p>用轻球、软豆袋、扁平标志和软短绳。选择平整、防滑、远离车流的空地，留出捡球和停下来的空间。</p><p>出现疼痛、明显跛行、异常气喘或头晕，立即停止并咨询专业人员。</p></div></details>
+    </section>
+  </main>
+</div>
+<nav class="bottom-nav" aria-label="主导航"><button data-view="trainView" aria-current="page"><span>◉</span>训练</button><button data-view="treeView"><span>◇</span>技能树</button><button data-view="recordView"><span>▣</span>记录</button><button data-view="guideView"><span>☰</span>陪练</button></nav>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
