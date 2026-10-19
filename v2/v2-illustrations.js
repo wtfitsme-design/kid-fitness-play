@@ -63,15 +63,19 @@
     'roll-hit':[['滚球过来','low',112,185,245,197],['拍子下沉','reach',126,174,230,160],['拍面碰球','reach',140,174,245,180],['球滚向前','reach',150,174,275,180]],
     'drop-hit':[['球举高','hold',112,174,220,135],['松手落球','reach',126,174,220,165],['拍子下移','reach',140,174,230,180],['轻轻击中','reach',150,174,250,180]],
     'aim-hit':[['看准目标','hold',112,174,280,150],['肩膀转向','reach',126,174,260,145],['向前挥拍','reach',140,174,275,145],['球飞向目标','reach',150,174,300,145]],
-    'four-point':[['双手双膝着垫','low',112,185,180,195],['手在肩下','low',126,185,180,195],['膝在髋下','low',140,185,180,195],['平稳呼吸','low',150,185,180,195]],
-    'crawl-forward':[['手膝着地','low',112,185,180,195],['右手左膝','low',126,185,195,195],['左手右膝','low',140,185,210,195],['爬到终点','low',150,185,240,195]],
-    'bear-steps':[['屁股抬高','low',112,185,180,195],['手脚交替','low',126,185,198,195],['向前走三步','low',140,185,220,195],['停下站稳','low',150,185,240,195]],
-    'crawl-tunnel':[['看见隧道','low',112,185,260,195],['手膝前进','low',126,185,260,195],['穿过中间','low',140,185,260,195],['到出口','low',150,185,295,195]],
-    'carry-ball':[['抱球爬行','low',112,185,270,195],['双手护球','low',126,185,270,195],['爬到箱边','low',140,185,270,195],['把球放进箱','hold',150,174,275,160]],
+    'four-point':[['双手双膝着垫','crawl',112,185,180,195],['手在肩下','crawl',126,185,180,195],['膝在髋下','crawl',140,185,180,195],['平稳呼吸','crawl',150,185,180,195]],
+    'crawl-forward':[['手膝着地','crawl',112,185,180,195],['右手左膝','crawl',126,185,195,195],['左手右膝','crawl',140,185,210,195],['爬到终点','crawl',150,185,240,195]],
+    'bear-steps':[['屁股抬高','crawl',112,185,180,195],['手脚交替','crawl',126,185,198,195],['向前走三步','crawl',140,185,220,195],['停下站稳','crawl',150,185,240,195]],
+    'crawl-tunnel':[['看见隧道','crawl',112,185,260,195],['手膝前进','crawl',126,185,260,195],['穿过中间','crawl',140,185,260,195],['到出口','crawl',150,185,295,195]],
+    'carry-ball':[['抱球爬行','crawl',112,185,270,195],['双手护球','crawl',126,185,270,195],['爬到箱边','crawl',140,185,270,195],['把球放进箱','hold',150,174,275,160]],
     'reset-body':[['趴下呼吸','low',112,185,180,195],['慢慢起身','reach',126,174,180,170],['伸展双臂','reach',140,174,180,140],['站好准备','hold',150,174,180,130]]
   };
   const seeds={hold:['抱稳球','hold'],release:['双手放球','reach'],'roll-stop':['接滚球','low'],'hold-beanbag':['拿稳豆袋','hold'],underhand:['下手送球','reach'],'roll-target':['滚向目标','low'],'ready-hands':['双手准备','hold'],'stop-roll':['拦住滚球','low'],'hug-ball':['抱稳球','hold'],'low-toss':['低抛接球','reach'],'move-catch':['挪一步接球','reach'],'ground-rope':['跳过地面绳','reach'],'rope-step':['绳到脚前','reach'],'one-jump':['摇一下跳一下','reach'],'reset-rope':['停住重置','hold'],'two-jump':['连续两次','reach'],'hold-paddle':['握住软拍','hold'],'roll-hit':['击打慢滚球','reach'],'drop-hit':['落球击打','reach'],'aim-hit':['拍向大目标','reach'],'four-point':['四点支撑','low'],'crawl-forward':['对侧爬行','low'],'bear-steps':['小熊走几步','low'],'crawl-tunnel':['穿过宽隧道','low'],'carry-ball':['爬到家再搬球','hold'],'reset-body':['整理身体','hold']};
   function child(x,y,pose,accent){
+    if(pose==='crawl'){
+      const headX=x-38, headY=y-62;
+      return `<g stroke-linecap=\"round\" stroke-linejoin=\"round\"><ellipse cx=\"${x}\" cy=\"${y+3}\" rx=\"42\" ry=\"6\" fill=\"#78946c\" opacity=\".18\"/><circle cx=\"${headX}\" cy=\"${headY}\" r=\"18\" fill=\"#f2bb91\" stroke=\"#80503b\" stroke-width=\"2\"/><path d=\"M${headX-18} ${headY-2}Q${headX-10} ${headY-24} ${headX+11} ${headY-19}Q${headX+21} ${headY-12} ${headX+14} ${headY-3}Q${headX+1} ${headY-10} ${headX-18} ${headY-2}\" fill=\"#4b3933\"/><circle cx=\"${headX-6}\" cy=\"${headY+1}\" r=\"2.4\" fill=\"#352b29\" stroke=\"none\"/><circle cx=\"${headX+7}\" cy=\"${headY+1}\" r=\"2.4\" fill=\"#352b29\" stroke=\"none\"/><path d=\"M${headX-3} ${headY+8}q4 3 8 0\" fill=\"none\" stroke=\"#a35e4b\" stroke-width=\"2\"/><path d=\"M${x-27} ${y-45}Q${x+4} ${y-66} ${x+35} ${y-37}L${x+24} ${y-15}Q${x-2} ${y-7} ${x-28} ${y-20}Z\" fill=\"#ffd15a\" stroke=\"#315849\" stroke-width=\"2\"/><path d=\"M${x-18} ${y-28}Q${x-26} ${y-5} ${x-34} ${y} M${x+5} ${y-25}Q${x+13} ${y-6} ${x+20} ${y}\" fill=\"none\" stroke=\"#f2bb91\" stroke-width=\"8\"/><path d=\"M${x+18} ${y-18}Q${x+38} ${y-2} ${x+46} ${y-1} M${x+27} ${y-16}Q${x+42} ${y+7} ${x+51} ${y+3}\" fill=\"none\" stroke=\"${accent}\" stroke-width=\"11\"/><path d=\"M${x-45} ${y-2}q10-6 21 0l-2 8h-22zM${x+43} ${y-3}q10-6 22 0l2 8h-22z\" fill=\"#e76f57\" stroke=\"#315849\" stroke-width=\"2\"/></g>`;
+    }
     const low=pose==='low',reach=pose==='reach',headY=y-(low?62:102),bodyY=y-(low?47:76),hipY=y-(low?17:35);
     const hands=reach?`M${x-11} ${bodyY+4}Q${x+2} ${bodyY+23} ${x+18} ${bodyY+26} M${x+10} ${bodyY+5}Q${x+25} ${bodyY+19} ${x+36} ${bodyY+9}`:`M${x-11} ${bodyY+4}Q${x-1} ${bodyY+17} ${x+2} ${bodyY+25} M${x+10} ${bodyY+5}Q${x+18} ${bodyY+17} ${x+20} ${bodyY+25}`;
     const legs=low?`M${x-5} ${hipY}Q${x-20} ${hipY+16} ${x-28} ${y-2} M${x+6} ${hipY}Q${x+19} ${hipY+15} ${x+29} ${y-3}`:`M${x-5} ${hipY}Q${x-12} ${hipY+18} ${x-17} ${y-2} M${x+6} ${hipY}Q${x+14} ${hipY+18} ${x+20} ${y-2}`;
