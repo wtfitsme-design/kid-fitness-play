@@ -30,11 +30,30 @@
     'throw:underhand':'throw-underhand',
     'throw:roll-target':'throw-roll-target',
     'throw:side-throw':'throw-side-throw',
-    'throw:step-throw':'throw-step-throw'
+    'throw:step-throw':'throw-step-throw',
+    'catch:stop-roll':'catch-stop-roll-v2',
+    'catch:hug-ball':'catch-hug-ball-v2',
+    'catch:low-toss':'catch-low-toss-v2',
+    'catch:bounce-catch':'catch-bounce-catch-v2',
+    'catch:move-catch':'catch-move-catch-v2',
+    'rope:one-jump':'rope-one-jump-v2',
+    'rope:reset-rope':'rope-reset-rope-v2',
+    'rope:rope-step':'rope-rope-step-v2',
+    'rope:small-jump':'rope-small-jump-v2',
+    'rope:two-jump':'rope-two-jump-v2',
+    'strike:hold-paddle':'strike-hold-paddle-v2',
+    'strike:air-swing':'strike-air-swing-v2',
+    'strike:tap-ball':'strike-tap-ball-v2',
+    'strike:roll-hit':'strike-roll-hit-v2',
+    'strike:drop-hit':'strike-drop-hit-v2',
+    'strike:aim-hit':'strike-aim-hit-v2'
   };
   leafAsset['core:four-point']='core-four-point-art2';
   leafAsset['core:crawl-forward']='core-crawl-forward-art2';
   leafAsset['core:bear-steps']='core-bear-steps-art2';
+  leafAsset['core:crawl-tunnel']='core-crawl-tunnel-art2';
+  leafAsset['core:carry-ball']='core-carry-ball-art2';
+  leafAsset['core:reset-body']='core-reset-body-art2';
   // 为所有叶子补齐独立 WebP 资源映射，避免缺少显式条目时回退成 SVG。
   // 文件名与叶子 id 一一对应，例如 catch:low-toss -> catch-low-toss。
   Object.entries(window.V2?.skills||{}).forEach(([skill,data])=>{
