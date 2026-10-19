@@ -48,6 +48,11 @@
 .profile-controls select{display:block;width:100%;margin-top:5px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit}
 .profile-controls .secondary-button{white-space:nowrap;font-size:12px}
 .profile-note{margin-bottom:0}
+.new-profile-form{margin-top:12px;font-size:12px;font-weight:800}
+.new-profile-form[hidden]{display:none}
+.new-profile-form>div{display:flex;gap:8px;margin-top:5px}
+.new-profile-form input{min-width:0;flex:1;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit}
+.new-profile-form .secondary-button{white-space:nowrap}
 
 /* Keep action sheets visible from both training and tree views. */
 .leaf-detail{z-index:70;bottom:0;max-height:calc(100dvh - 12px);padding-bottom:calc(30px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}
