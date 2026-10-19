@@ -124,7 +124,7 @@
   function frame(skill,step,leaf){
     const prefix=leafPrefix[skill], id=leaf?.id;
     const asset=leafAsset[`${skill}:${id}`];
-    if(asset)return `<div class="generated-motion"><img src="assets/illustrations/leaves/${asset}-step-${step+1}.png" alt="${esc(leaf?.name||'动作')}第${step+1}步" loading="lazy"></div>`;
+    if(asset)return `<div class="generated-motion"><img src="assets/illustrations/leaves/${asset}-step-${step+1}.webp" alt="${esc(leaf?.name||'动作')}第${step+1}步" loading="lazy"></div>`;
     // Missing leaf assets use the semantic, leaf-specific vector storyboard.
     // This keeps every leaf visually distinct instead of falling back to one
     // shared skill image set.
