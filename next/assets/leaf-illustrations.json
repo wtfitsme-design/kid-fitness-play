@@ -1,0 +1,613 @@
+{
+  "basketball-hold": {
+    "skill": "basketball",
+    "leaf": "hold",
+    "sheet": "assets/illustrations/leaves/basketball-hold-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-hold-step-1.png",
+      "assets/illustrations/leaves/basketball-hold-step-2.png",
+      "assets/illustrations/leaves/basketball-hold-step-3.png",
+      "assets/illustrations/leaves/basketball-hold-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-release": {
+    "skill": "basketball",
+    "leaf": "release",
+    "sheet": "assets/illustrations/leaves/basketball-release-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-release-step-1.png",
+      "assets/illustrations/leaves/basketball-release-step-2.png",
+      "assets/illustrations/leaves/basketball-release-step-3.png",
+      "assets/illustrations/leaves/basketball-release-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-roll-stop": {
+    "skill": "basketball",
+    "leaf": "roll-stop",
+    "sheet": "assets/illustrations/leaves/basketball-roll-stop-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-roll-stop-step-1.png",
+      "assets/illustrations/leaves/basketball-roll-stop-step-2.png",
+      "assets/illustrations/leaves/basketball-roll-stop-step-3.png",
+      "assets/illustrations/leaves/basketball-roll-stop-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-bounce-catch": {
+    "skill": "basketball",
+    "leaf": "bounce-catch",
+    "sheet": "assets/illustrations/leaves/basketball-bounce-catch-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-bounce-catch-step-1.png",
+      "assets/illustrations/leaves/basketball-bounce-catch-step-2.png",
+      "assets/illustrations/leaves/basketball-bounce-catch-step-3.png",
+      "assets/illustrations/leaves/basketball-bounce-catch-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-low-dribble": {
+    "skill": "basketball",
+    "leaf": "low-dribble",
+    "sheet": "assets/illustrations/leaves/basketball-low-dribble-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-low-dribble-step-1.png",
+      "assets/illustrations/leaves/basketball-low-dribble-step-2.png",
+      "assets/illustrations/leaves/basketball-low-dribble-step-3.png",
+      "assets/illustrations/leaves/basketball-low-dribble-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-switch-hand": {
+    "skill": "basketball",
+    "leaf": "switch-hand",
+    "sheet": "assets/illustrations/leaves/basketball-switch-hand-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-switch-hand-step-1.png",
+      "assets/illustrations/leaves/basketball-switch-hand-step-2.png",
+      "assets/illustrations/leaves/basketball-switch-hand-step-3.png",
+      "assets/illustrations/leaves/basketball-switch-hand-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-step-dribble": {
+    "skill": "basketball",
+    "leaf": "step-dribble",
+    "sheet": "assets/illustrations/leaves/basketball-step-dribble-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-step-dribble-step-1.png",
+      "assets/illustrations/leaves/basketball-step-dribble-step-2.png",
+      "assets/illustrations/leaves/basketball-step-dribble-step-3.png",
+      "assets/illustrations/leaves/basketball-step-dribble-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-turn-dribble": {
+    "skill": "basketball",
+    "leaf": "turn-dribble",
+    "sheet": "assets/illustrations/leaves/basketball-turn-dribble-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-turn-dribble-step-1.png",
+      "assets/illustrations/leaves/basketball-turn-dribble-step-2.png",
+      "assets/illustrations/leaves/basketball-turn-dribble-step-3.png",
+      "assets/illustrations/leaves/basketball-turn-dribble-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "basketball-target-dribble": {
+    "skill": "basketball",
+    "leaf": "target-dribble",
+    "sheet": "assets/illustrations/leaves/basketball-target-dribble-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/basketball-target-dribble-step-1.png",
+      "assets/illustrations/leaves/basketball-target-dribble-step-2.png",
+      "assets/illustrations/leaves/basketball-target-dribble-step-3.png",
+      "assets/illustrations/leaves/basketball-target-dribble-step-4.png"
+    ],
+    "source": "assets/illustrations/basketball-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-hold-beanbag": {
+    "skill": "throw",
+    "leaf": "hold-beanbag",
+    "sheet": "assets/illustrations/leaves/throw-hold-beanbag-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-hold-beanbag-step-1.png",
+      "assets/illustrations/leaves/throw-hold-beanbag-step-2.png",
+      "assets/illustrations/leaves/throw-hold-beanbag-step-3.png",
+      "assets/illustrations/leaves/throw-hold-beanbag-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-underhand": {
+    "skill": "throw",
+    "leaf": "underhand",
+    "sheet": "assets/illustrations/leaves/throw-underhand-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-underhand-step-1.png",
+      "assets/illustrations/leaves/throw-underhand-step-2.png",
+      "assets/illustrations/leaves/throw-underhand-step-3.png",
+      "assets/illustrations/leaves/throw-underhand-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-roll-target": {
+    "skill": "throw",
+    "leaf": "roll-target",
+    "sheet": "assets/illustrations/leaves/throw-roll-target-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-roll-target-step-1.png",
+      "assets/illustrations/leaves/throw-roll-target-step-2.png",
+      "assets/illustrations/leaves/throw-roll-target-step-3.png",
+      "assets/illustrations/leaves/throw-roll-target-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-side-throw": {
+    "skill": "throw",
+    "leaf": "side-throw",
+    "sheet": "assets/illustrations/leaves/throw-side-throw-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-side-throw-step-1.png",
+      "assets/illustrations/leaves/throw-side-throw-step-2.png",
+      "assets/illustrations/leaves/throw-side-throw-step-3.png",
+      "assets/illustrations/leaves/throw-side-throw-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-step-throw": {
+    "skill": "throw",
+    "leaf": "step-throw",
+    "sheet": "assets/illustrations/leaves/throw-step-throw-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-step-throw-step-1.png",
+      "assets/illustrations/leaves/throw-step-throw-step-2.png",
+      "assets/illustrations/leaves/throw-step-throw-step-3.png",
+      "assets/illustrations/leaves/throw-step-throw-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-follow-through": {
+    "skill": "throw",
+    "leaf": "follow-through",
+    "sheet": "assets/illustrations/leaves/throw-follow-through-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-follow-through-step-1.png",
+      "assets/illustrations/leaves/throw-follow-through-step-2.png",
+      "assets/illustrations/leaves/throw-follow-through-step-3.png",
+      "assets/illustrations/leaves/throw-follow-through-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "throw-choose-target": {
+    "skill": "throw",
+    "leaf": "choose-target",
+    "sheet": "assets/illustrations/leaves/throw-choose-target-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/throw-choose-target-step-1.png",
+      "assets/illustrations/leaves/throw-choose-target-step-2.png",
+      "assets/illustrations/leaves/throw-choose-target-step-3.png",
+      "assets/illustrations/leaves/throw-choose-target-step-4.png"
+    ],
+    "source": "assets/illustrations/throwing-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "catch-ready-hands": {
+    "skill": "catch",
+    "leaf": "ready-hands",
+    "sheet": "assets/illustrations/leaves/catch-ready-hands-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/catch-ready-hands-step-1.png",
+      "assets/illustrations/leaves/catch-ready-hands-step-2.png",
+      "assets/illustrations/leaves/catch-ready-hands-step-3.png",
+      "assets/illustrations/leaves/catch-ready-hands-step-4.png"
+    ],
+    "source": "assets/illustrations/catch-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "catch-stop-roll": {
+    "skill": "catch",
+    "leaf": "stop-roll",
+    "sheet": "assets/illustrations/leaves/catch-stop-roll-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/catch-stop-roll-step-1.png",
+      "assets/illustrations/leaves/catch-stop-roll-step-2.png",
+      "assets/illustrations/leaves/catch-stop-roll-step-3.png",
+      "assets/illustrations/leaves/catch-stop-roll-step-4.png"
+    ],
+    "source": "assets/illustrations/catch-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "catch-hug-ball": {
+    "skill": "catch",
+    "leaf": "hug-ball",
+    "sheet": "assets/illustrations/leaves/catch-hug-ball-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/catch-hug-ball-step-1.png",
+      "assets/illustrations/leaves/catch-hug-ball-step-2.png",
+      "assets/illustrations/leaves/catch-hug-ball-step-3.png",
+      "assets/illustrations/leaves/catch-hug-ball-step-4.png"
+    ],
+    "source": "assets/illustrations/catch-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "catch-low-toss": {
+    "skill": "catch",
+    "leaf": "low-toss",
+    "sheet": "assets/illustrations/leaves/catch-low-toss-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/catch-low-toss-step-1.png",
+      "assets/illustrations/leaves/catch-low-toss-step-2.png",
+      "assets/illustrations/leaves/catch-low-toss-step-3.png",
+      "assets/illustrations/leaves/catch-low-toss-step-4.png"
+    ],
+    "source": "assets/illustrations/catch-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "catch-bounce-catch": {
+    "skill": "catch",
+    "leaf": "bounce-catch",
+    "sheet": "assets/illustrations/leaves/catch-bounce-catch-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/catch-bounce-catch-step-1.png",
+      "assets/illustrations/leaves/catch-bounce-catch-step-2.png",
+      "assets/illustrations/leaves/catch-bounce-catch-step-3.png",
+      "assets/illustrations/leaves/catch-bounce-catch-step-4.png"
+    ],
+    "source": "assets/illustrations/catch-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "catch-move-catch": {
+    "skill": "catch",
+    "leaf": "move-catch",
+    "sheet": "assets/illustrations/leaves/catch-move-catch-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/catch-move-catch-step-1.png",
+      "assets/illustrations/leaves/catch-move-catch-step-2.png",
+      "assets/illustrations/leaves/catch-move-catch-step-3.png",
+      "assets/illustrations/leaves/catch-move-catch-step-4.png"
+    ],
+    "source": "assets/illustrations/catch-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-foot-stop": {
+    "skill": "kick",
+    "leaf": "foot-stop",
+    "sheet": "assets/illustrations/leaves/kick-foot-stop-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-foot-stop-step-1.png",
+      "assets/illustrations/leaves/kick-foot-stop-step-2.png",
+      "assets/illustrations/leaves/kick-foot-stop-step-3.png",
+      "assets/illustrations/leaves/kick-foot-stop-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-push-ball": {
+    "skill": "kick",
+    "leaf": "push-ball",
+    "sheet": "assets/illustrations/leaves/kick-push-ball-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-push-ball-step-1.png",
+      "assets/illustrations/leaves/kick-push-ball-step-2.png",
+      "assets/illustrations/leaves/kick-push-ball-step-3.png",
+      "assets/illustrations/leaves/kick-push-ball-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-ready-kick": {
+    "skill": "kick",
+    "leaf": "ready-kick",
+    "sheet": "assets/illustrations/leaves/kick-ready-kick-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-ready-kick-step-1.png",
+      "assets/illustrations/leaves/kick-ready-kick-step-2.png",
+      "assets/illustrations/leaves/kick-ready-kick-step-3.png",
+      "assets/illustrations/leaves/kick-ready-kick-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-kick-gate": {
+    "skill": "kick",
+    "leaf": "kick-gate",
+    "sheet": "assets/illustrations/leaves/kick-kick-gate-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-kick-gate-step-1.png",
+      "assets/illustrations/leaves/kick-kick-gate-step-2.png",
+      "assets/illustrations/leaves/kick-kick-gate-step-3.png",
+      "assets/illustrations/leaves/kick-kick-gate-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-stop-return": {
+    "skill": "kick",
+    "leaf": "stop-return",
+    "sheet": "assets/illustrations/leaves/kick-stop-return-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-stop-return-step-1.png",
+      "assets/illustrations/leaves/kick-stop-return-step-2.png",
+      "assets/illustrations/leaves/kick-stop-return-step-3.png",
+      "assets/illustrations/leaves/kick-stop-return-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-follow-ball": {
+    "skill": "kick",
+    "leaf": "follow-ball",
+    "sheet": "assets/illustrations/leaves/kick-follow-ball-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-follow-ball-step-1.png",
+      "assets/illustrations/leaves/kick-follow-ball-step-2.png",
+      "assets/illustrations/leaves/kick-follow-ball-step-3.png",
+      "assets/illustrations/leaves/kick-follow-ball-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "kick-turn-kick": {
+    "skill": "kick",
+    "leaf": "turn-kick",
+    "sheet": "assets/illustrations/leaves/kick-turn-kick-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/kick-turn-kick-step-1.png",
+      "assets/illustrations/leaves/kick-turn-kick-step-2.png",
+      "assets/illustrations/leaves/kick-turn-kick-step-3.png",
+      "assets/illustrations/leaves/kick-turn-kick-step-4.png"
+    ],
+    "source": "assets/illustrations/kick-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "rope-small-jump": {
+    "skill": "rope",
+    "leaf": "small-jump",
+    "sheet": "assets/illustrations/leaves/rope-small-jump-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/rope-small-jump-step-1.png",
+      "assets/illustrations/leaves/rope-small-jump-step-2.png",
+      "assets/illustrations/leaves/rope-small-jump-step-3.png",
+      "assets/illustrations/leaves/rope-small-jump-step-4.png"
+    ],
+    "source": "assets/illustrations/rope-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "rope-ground-rope": {
+    "skill": "rope",
+    "leaf": "ground-rope",
+    "sheet": "assets/illustrations/leaves/rope-ground-rope-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/rope-ground-rope-step-1.png",
+      "assets/illustrations/leaves/rope-ground-rope-step-2.png",
+      "assets/illustrations/leaves/rope-ground-rope-step-3.png",
+      "assets/illustrations/leaves/rope-ground-rope-step-4.png"
+    ],
+    "source": "assets/illustrations/rope-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "rope-rope-step": {
+    "skill": "rope",
+    "leaf": "rope-step",
+    "sheet": "assets/illustrations/leaves/rope-rope-step-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/rope-rope-step-step-1.png",
+      "assets/illustrations/leaves/rope-rope-step-step-2.png",
+      "assets/illustrations/leaves/rope-rope-step-step-3.png",
+      "assets/illustrations/leaves/rope-rope-step-step-4.png"
+    ],
+    "source": "assets/illustrations/rope-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "rope-one-jump": {
+    "skill": "rope",
+    "leaf": "one-jump",
+    "sheet": "assets/illustrations/leaves/rope-one-jump-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/rope-one-jump-step-1.png",
+      "assets/illustrations/leaves/rope-one-jump-step-2.png",
+      "assets/illustrations/leaves/rope-one-jump-step-3.png",
+      "assets/illustrations/leaves/rope-one-jump-step-4.png"
+    ],
+    "source": "assets/illustrations/rope-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "rope-reset-rope": {
+    "skill": "rope",
+    "leaf": "reset-rope",
+    "sheet": "assets/illustrations/leaves/rope-reset-rope-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/rope-reset-rope-step-1.png",
+      "assets/illustrations/leaves/rope-reset-rope-step-2.png",
+      "assets/illustrations/leaves/rope-reset-rope-step-3.png",
+      "assets/illustrations/leaves/rope-reset-rope-step-4.png"
+    ],
+    "source": "assets/illustrations/rope-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "rope-two-jump": {
+    "skill": "rope",
+    "leaf": "two-jump",
+    "sheet": "assets/illustrations/leaves/rope-two-jump-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/rope-two-jump-step-1.png",
+      "assets/illustrations/leaves/rope-two-jump-step-2.png",
+      "assets/illustrations/leaves/rope-two-jump-step-3.png",
+      "assets/illustrations/leaves/rope-two-jump-step-4.png"
+    ],
+    "source": "assets/illustrations/rope-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "strike-hold-paddle": {
+    "skill": "strike",
+    "leaf": "hold-paddle",
+    "sheet": "assets/illustrations/leaves/strike-hold-paddle-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/strike-hold-paddle-step-1.png",
+      "assets/illustrations/leaves/strike-hold-paddle-step-2.png",
+      "assets/illustrations/leaves/strike-hold-paddle-step-3.png",
+      "assets/illustrations/leaves/strike-hold-paddle-step-4.png"
+    ],
+    "source": "assets/illustrations/strike-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "strike-air-swing": {
+    "skill": "strike",
+    "leaf": "air-swing",
+    "sheet": "assets/illustrations/leaves/strike-air-swing-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/strike-air-swing-step-1.png",
+      "assets/illustrations/leaves/strike-air-swing-step-2.png",
+      "assets/illustrations/leaves/strike-air-swing-step-3.png",
+      "assets/illustrations/leaves/strike-air-swing-step-4.png"
+    ],
+    "source": "assets/illustrations/strike-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "strike-tap-ball": {
+    "skill": "strike",
+    "leaf": "tap-ball",
+    "sheet": "assets/illustrations/leaves/strike-tap-ball-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/strike-tap-ball-step-1.png",
+      "assets/illustrations/leaves/strike-tap-ball-step-2.png",
+      "assets/illustrations/leaves/strike-tap-ball-step-3.png",
+      "assets/illustrations/leaves/strike-tap-ball-step-4.png"
+    ],
+    "source": "assets/illustrations/strike-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "strike-roll-hit": {
+    "skill": "strike",
+    "leaf": "roll-hit",
+    "sheet": "assets/illustrations/leaves/strike-roll-hit-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/strike-roll-hit-step-1.png",
+      "assets/illustrations/leaves/strike-roll-hit-step-2.png",
+      "assets/illustrations/leaves/strike-roll-hit-step-3.png",
+      "assets/illustrations/leaves/strike-roll-hit-step-4.png"
+    ],
+    "source": "assets/illustrations/strike-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "strike-drop-hit": {
+    "skill": "strike",
+    "leaf": "drop-hit",
+    "sheet": "assets/illustrations/leaves/strike-drop-hit-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/strike-drop-hit-step-1.png",
+      "assets/illustrations/leaves/strike-drop-hit-step-2.png",
+      "assets/illustrations/leaves/strike-drop-hit-step-3.png",
+      "assets/illustrations/leaves/strike-drop-hit-step-4.png"
+    ],
+    "source": "assets/illustrations/strike-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "strike-aim-hit": {
+    "skill": "strike",
+    "leaf": "aim-hit",
+    "sheet": "assets/illustrations/leaves/strike-aim-hit-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/strike-aim-hit-step-1.png",
+      "assets/illustrations/leaves/strike-aim-hit-step-2.png",
+      "assets/illustrations/leaves/strike-aim-hit-step-3.png",
+      "assets/illustrations/leaves/strike-aim-hit-step-4.png"
+    ],
+    "source": "assets/illustrations/strike-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "core-four-point": {
+    "skill": "core",
+    "leaf": "four-point",
+    "sheet": "assets/illustrations/leaves/core-four-point-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/core-four-point-step-1.png",
+      "assets/illustrations/leaves/core-four-point-step-2.png",
+      "assets/illustrations/leaves/core-four-point-step-3.png",
+      "assets/illustrations/leaves/core-four-point-step-4.png"
+    ],
+    "source": "assets/illustrations/core-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "core-crawl-forward": {
+    "skill": "core",
+    "leaf": "crawl-forward",
+    "sheet": "assets/illustrations/leaves/core-crawl-forward-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/core-crawl-forward-step-1.png",
+      "assets/illustrations/leaves/core-crawl-forward-step-2.png",
+      "assets/illustrations/leaves/core-crawl-forward-step-3.png",
+      "assets/illustrations/leaves/core-crawl-forward-step-4.png"
+    ],
+    "source": "assets/illustrations/core-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "core-bear-steps": {
+    "skill": "core",
+    "leaf": "bear-steps",
+    "sheet": "assets/illustrations/leaves/core-bear-steps-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/core-bear-steps-step-1.png",
+      "assets/illustrations/leaves/core-bear-steps-step-2.png",
+      "assets/illustrations/leaves/core-bear-steps-step-3.png",
+      "assets/illustrations/leaves/core-bear-steps-step-4.png"
+    ],
+    "source": "assets/illustrations/core-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "core-crawl-tunnel": {
+    "skill": "core",
+    "leaf": "crawl-tunnel",
+    "sheet": "assets/illustrations/leaves/core-crawl-tunnel-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/core-crawl-tunnel-step-1.png",
+      "assets/illustrations/leaves/core-crawl-tunnel-step-2.png",
+      "assets/illustrations/leaves/core-crawl-tunnel-step-3.png",
+      "assets/illustrations/leaves/core-crawl-tunnel-step-4.png"
+    ],
+    "source": "assets/illustrations/core-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "core-carry-ball": {
+    "skill": "core",
+    "leaf": "carry-ball",
+    "sheet": "assets/illustrations/leaves/core-carry-ball-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/core-carry-ball-step-1.png",
+      "assets/illustrations/leaves/core-carry-ball-step-2.png",
+      "assets/illustrations/leaves/core-carry-ball-step-3.png",
+      "assets/illustrations/leaves/core-carry-ball-step-4.png"
+    ],
+    "source": "assets/illustrations/core-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  },
+  "core-reset-body": {
+    "skill": "core",
+    "leaf": "reset-body",
+    "sheet": "assets/illustrations/leaves/core-reset-body-steps.png",
+    "steps": [
+      "assets/illustrations/leaves/core-reset-body-step-1.png",
+      "assets/illustrations/leaves/core-reset-body-step-2.png",
+      "assets/illustrations/leaves/core-reset-body-step-3.png",
+      "assets/illustrations/leaves/core-reset-body-step-4.png"
+    ],
+    "source": "assets/illustrations/core-steps.png",
+    "note": "技能级连续插画的叶片专用裁切；后续可按叶子语义替换为独立生成图。"
+  }
+}
