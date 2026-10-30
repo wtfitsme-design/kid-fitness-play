@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#1f6c58">
+  <meta name="description" content="给孩子的亲子运动成长记录，从一片小叶子开始。">
+  <title>小小运动家</title>
+  <link rel="stylesheet" href="next.css">
+  <script src="next-content.js" defer></script>
+  <script src="next-illustrations.js" defer></script>
+  <script src="next-app.js?tree-layout=grouped3" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div><span class="eyebrow">MOVE & GROW</span><h1>小小运动家<span class="dot"></span></h1></div>
+    <span id="profileBadge" class="profile-badge">孩子</span>
+  </header>
+
+  <main>
+    <section id="trainView" class="view" aria-labelledby="trainTitle">
+      <div class="hero-copy compact-hero">
+        <p class="eyebrow">这次练习</p>
+        <h2 id="trainTitle">从一片小叶子开始</h2>
+        <p>看一眼、试一步，做会了就把它点亮。</p>
+      </div>
+
+      <section class="section-card primary-practice-card" aria-labelledby="currentSkillName">
+        <div class="section-head">
+          <div><span class="section-kicker">继续练</span><h3 id="currentSkillName">篮球控球</h3></div>
+          <button id="changeSkillButton" class="text-button" type="button">换技能</button>
+        </div>
+        <div class="current-leaf-preview">
+          <div class="current-leaf-copy">
+            <span class="current-leaf-label">当前小目标</span>
+            <h4 id="currentLeafName">抱稳球</h4>
+            <p id="currentLeafTask">双手把球抱在腰前，走三步再停住。</p>
+            <span id="currentLeafStatus" class="status-pill">可以练习</span>
+          </div>
+          <div id="currentLeafImage" class="current-leaf-image" aria-label="当前动作图解"></div>
+        </div>
+        <button id="startSessionPrimary" class="primary-button" type="button">开始这次练习</button>
+        <button id="openTreeFromTrain" class="subtle-link" type="button">查看这项技能的成长树 →</button>
+      </section>
+
+      <details id="skillChooser" class="section-card simple-details">
+        <summary><span>选择其他技能</span><span id="skillProgress" class="summary-meta"></span></summary>
+        <div class="details-body">
+          <p class="muted short-help">换一项技能后，页面会自动推荐下一片可以练的叶子。</p>
+          <div id="skillPicker" class="skill-picker"></div>
+        </div>
+      </details>
+
+      <details id="leafChooser" class="section-card simple-details">
+        <summary><span>调整这次练哪些叶子</span><span id="selectedLeafCount" class="summary-meta">1 片</span></summary>
+        <div class="details-body">
+          <p class="muted short-help">默认练当前叶子。孩子状态好时，可以再加一到两片同一技能的叶子。</p>
+          <div id="todayPath" class="today-path"></div>
+        </div>
+      </details>
+
+      <details id="trainingOptions" class="section-card simple-details">
+        <summary><span>训练设置</span><span class="summary-meta">家长调整</span></summary>
+        <div class="details-body">
+          <div class="duration-row"><label for="duration">这次时长</label><select id="duration"><option value="25">轻量</option><option value="40" selected>标准</option><option value="50">加长</option></select></div>
+          <p class="muted short-help">时长包含热身、练习、游戏和收尾；孩子累了随时可以结束。</p>
+        </div>
+      </details>
+
+      <div id="sessionPanel" class="section-card session-card" hidden></div>
+    </section>
+
+    <section id="treeView" class="view" hidden aria-labelledby="treeTitle">
+      <div class="page-heading compact-heading"><p class="eyebrow">成长</p><h2 id="treeTitle">一项技能，一棵树</h2><p>从底部的小能力开始，慢慢长出新的本领。</p></div>
+      <div class="section-card tree-select-card simple-tree-tools">
+        <label for="treeSkillSelect">正在看的技能</label>
+        <select id="treeSkillSelect"></select>
+        <div id="treeLegend" class="tree-legend"><span><i class="legend-dot done"></i>已点亮</span><span><i class="legend-dot ready"></i>现在可以练</span><span><i class="legend-dot locked"></i>先预览</span></div>
+      </div>
+      <div id="skillTree" class="skill-tree" aria-live="polite"></div>
+    </section>
+
+    <section id="myView" class="view" hidden aria-labelledby="myTitle">
+      <div class="page-heading compact-heading"><p class="eyebrow">我的</p><h2 id="myTitle">成长和设置</h2><p>先看看点亮的叶子，再调整档案和陪练方式。</p></div>
+      <details class="section-card simple-details" open><summary><span>成长记录</span><span class="summary-meta">看见点亮的叶子</span></summary><div class="details-body"><div id="recordSummary" class="record-summary"></div><div id="recordList" class="record-list"></div></div></details>
+      <div class="section-card profile-card">
+        <div class="section-head"><div><span class="section-kicker">档案</span><h3>当前使用者</h3></div><span class="muted">本机保存</span></div>
+        <div class="profile-controls"><label for="profileSelect">使用者<select id="profileSelect"></select></label><button id="newProfile" class="secondary-button" type="button">新增</button></div>
+        <div id="newProfileForm" class="new-profile-form" hidden><label for="newProfileName">名字</label><div><input id="newProfileName" type="text" maxlength="20" autocomplete="off" placeholder="例如：小明"><button id="createProfile" class="secondary-button" type="button">创建</button></div></div>
+        <p class="muted profile-note">不同档案互相独立；换手机时可以导出后再导入。</p>
+      </div>
+
+      <details class="section-card simple-details" open><summary><span>孩子害怕失败时</span></summary><div class="details-body prose"><p>先承认难受，再给一个更小的选择：“你想把球放近一点，还是先看我做一次？”</p><p>把成功标准改成“试了一个步骤”，大人自然示范失误、调整和再试。</p></div></details>
+      <details class="section-card simple-details"><summary><span>安全和器材</span></summary><div class="details-body prose"><p>使用轻球、软豆袋、扁平标志和软短绳，选择平整、防滑、远离车流的空地。</p><p>出现疼痛、明显跛行、异常气喘或头晕，立即停止并咨询专业人员。</p></div></details>
+      <details class="section-card simple-details"><summary><span>备份成长记录</span></summary><div class="details-body"><p class="muted">记录只保存在当前浏览器，不会自动同步到其他手机。</p><div class="button-row"><button id="exportData" class="secondary-button" type="button">导出当前档案</button><label class="secondary-button file-label">导入档案<input id="importData" type="file" accept="application/json,.json"></label></div><p id="backupStatus" class="status-text"></p></div></details>
+    </section>
+  </main>
+</div>
+
+<div id="leafDetail" class="leaf-detail" hidden></div>
+<nav class="bottom-nav" aria-label="主导航"><button data-view="trainView" aria-current="page"><span>◉</span>训练</button><button data-view="treeView"><span>◇</span>成长</button><button data-view="myView"><span>☰</span>我的</button></nav>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
