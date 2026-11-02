@@ -58,6 +58,11 @@
     return st==='done'?'已点亮':st==='ready'?'可以练习':'先练好上一步';
   }
   function statusClass(l){return `status-${leafState(l)}`}
+  function warmImages(targets,root){
+    const sources=targets.flatMap(l=>[0,1,2,3].map(i=>window.V2Motion.imageUrl(state.currentSkill,i,l))).filter(Boolean).map(window.V2Images.url);
+    window.V2Images.observe(root);
+    window.V2Images.prepare([...sources,window.V2Images.tree],root);
+  }
   function renderProfiles(){
     const select=$('profileSelect');
     select.replaceChildren(...profiles.items.map(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.name;return o}));
@@ -103,7 +108,12 @@
     $('currentLeafTask').textContent=current?.task||'';
     $('currentLeafStatus').textContent=current?statusText(current):'';
     $('currentLeafStatus').className=`status-pill ${current?statusClass(current):''}`;
-    $('currentLeafImage').innerHTML=current?window.V2Motion.frame(state.currentSkill,0,current):'';
+    const preview=$('currentLeafImage'),imageKey=current?leafKey(current):'';
+    if(preview.dataset.leaf!==imageKey){
+      preview.dataset.leaf=imageKey;
+      preview.innerHTML=current?window.V2Motion.frame(state.currentSkill,0,current,{preview:true}):'';
+    }
+    warmImages(selected,preview);
     $('duration').value=String(state.duration);
     renderProfiles();renderSkillPicker();renderPath();
   }
@@ -136,6 +146,7 @@
     wrap.querySelector('[data-session-next]').onclick=()=>{if(session.frame<3){session.frame++;renderSession()}};
     wrap.querySelector('[data-session-step]').onclick=()=>{if(session.frame<3){session.frame++;renderSession();return}state.done[leafKey(target)]=true;persist();session.targetIndex++;session.frame=0;if(session.targetIndex>=session.targets.length)session.finished=true;renderSession();renderTrain();renderTree();renderRecords();};
     wrap.querySelector('[data-session-end]').onclick=()=>finishSession();
+    warmImages([target],wrap);
   }
   function startSession(){
     const targets=selectedForTraining();
@@ -146,11 +157,14 @@
   function finishSession(saved=false){session=null;renderSession();if(saved){renderTrain();renderTree();renderRecords()}}
   function renderTree(){
     const s=skill(),wrap=$('skillTree');
+    const art=wrap.querySelector('.tree-art')||document.createElement('img');
     $('treeSkillSelect').value=state.currentSkill;wrap.replaceChildren();
     const stage=document.createElement('div');
     stage.className='tree-stage tree-stage-art';
-    const art=document.createElement('img');
-    art.className='tree-art';art.src='assets/tree-skill-background.png';art.alt=`${s.name}成长树`;
+    stage.dataset.image='';
+    art.className='tree-art';art.src=window.V2Images.tree;art.alt=`${s.name}成长树`;
+    art.width=1024;art.height=1536;art.decoding='async';art.fetchPriority='high';
+    delete art.dataset.observed;
     stage.append(art);
     const positions=[
       [{x:12,y:56},{x:32,y:56},{x:22,y:53}],
@@ -178,13 +192,15 @@
     });
     const rootLabel=document.createElement('div');rootLabel.className='tree-root-label';rootLabel.innerHTML=`<span>🌱</span><strong>${esc(s.name)}</strong><small>从根部开始长出新的能力</small>`;stage.append(rootLabel);
     wrap.append(stage);
+    window.V2Images.observe(wrap);
   }
   function branchesForTree(s){return s.branches||[]}
   function openLeaf(id,preview=false){
     const l=leafList().find(x=>x.id===id);if(!l)return;selectedLeaf=l;const s=skill(),st=leafState(l),locked=preview||st==='locked',detail=$('leafDetail');
-    const frames=[0,1,2,3].map(i=>`<figure class="motion-frame">${window.V2Motion.frame(state.currentSkill,i,l)}<figcaption>${['准备','动作','控制','完成'][i]}</figcaption></figure>`).join('');
+    const frames=[0,1,2,3].map(i=>`<figure class="motion-frame">${window.V2Motion.frame(state.currentSkill,i,l,{lazy:i>0})}<figcaption>${['准备','动作','控制','完成'][i]}</figcaption></figure>`).join('');
     detail.hidden=false;detail.classList.add('open');detail.setAttribute('role','dialog');detail.setAttribute('aria-modal','true');detail.innerHTML=`<div class="detail-top"><div><span class="detail-kicker">${esc(s.name)} · ${esc(l.branch)}</span><h3>${esc(l.name)}</h3></div><button class="close-detail" type="button" aria-label="关闭">×</button></div><p>${esc(l.task)}</p><div class="motion-sequence">${frames}</div><div class="detail-tip"><strong>${locked?'预览提示':'只记一个口令：'}</strong>${esc(locked?'先看看动作，前面的叶子完成后就能练这一片。':l.tip)}</div><p class="muted">${st==='done'?'这片叶子已经点亮，可以补充这次的发现。':locked?'当前先预览，完成前面的叶子再回来。':'做完这片叶子后就可以点亮。'}</p><textarea id="leafNote" rows="3" placeholder="例如：我发现球要轻轻按，它就会回来。" ${locked?'disabled':''}>${esc(state.notes[leafKey(l)]||'')}</textarea><div class="button-row" style="margin-top:10px"><button id="saveLeaf" type="button" class="primary-button" style="margin-top:0;flex:1" ${locked?'disabled':''}>${st==='done'?'保存这次记录':'点亮叶子并保存'}</button></div>`;
     detail.querySelector('.close-detail').onclick=closeLeaf;const save=$('saveLeaf');if(!locked)save.onclick=()=>{const note=$('leafNote').value.trim();state.notes[leafKey(l)]=note;state.done[leafKey(l)]=true;persist();closeLeaf();renderAll();toast(`已点亮：${l.name}`)};detail.scrollTop=0;detail.querySelector('.close-detail').focus();
+    warmImages([l],detail);
   }
   function closeLeaf(){$('leafDetail').hidden=true;$('leafDetail').classList.remove('open');selectedLeaf=null}
   function renderRecords(){
@@ -193,7 +209,7 @@
     const wrap=$('recordList');wrap.replaceChildren();skillIds.forEach(id=>{const s=skills[id],ls=allLeaf(s),d=ls.filter(l=>state.done[`${id}:${l.id}`]).length,article=document.createElement('article');article.className='record-skill';article.innerHTML=`<div class="record-skill-head"><h3>${esc(s.name)}</h3><small>${d}/${ls.length}</small></div><div class="record-bar"><i style="width:${d/ls.length*100}%;background:${s.color}"></i></div>${d?ls.filter(l=>state.done[`${id}:${l.id}`]).map(l=>`<button class="record-leaf-row" data-record-leaf="${id}:${l.id}"><span class="record-mark">✓</span><span><strong>${esc(l.name)}</strong><small>${esc(state.notes[`${id}:${l.id}`]||'完成了一次练习')}</small></span><span class="small-button">查看</span></button>`).join(''):'<p class="muted record-empty">从底部的一片叶子开始，慢慢积累。</p>'}`;article.querySelectorAll('[data-record-leaf]').forEach(b=>b.onclick=()=>{const [sid,lid]=b.dataset.recordLeaf.split(':');state.currentSkill=sid;persist();nav('treeView');setTimeout(()=>openLeaf(lid),0)});wrap.append(article)})
   }
   function nav(view){closeLeaf();document.querySelectorAll('.view').forEach(v=>v.hidden=v.id!==view);document.querySelectorAll('[data-view]').forEach(b=>b.getAttribute('data-view')===view?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));window.scrollTo({top:0,behavior:'instant'});if(view==='trainView')renderTrain();if(view==='treeView')renderTree();if(view==='recordView')renderRecords();if(view==='myView')renderProfiles()}
-  function renderAll(){renderTrain();renderTree();renderRecords();renderProfiles()}
+  function renderAll(){renderTrain();if(!$('treeView').hidden)renderTree();renderRecords();renderProfiles()}
   $('changeSkillButton').onclick=()=>{$('skillChooser').open=true;$('skillChooser').scrollIntoView({behavior:'smooth',block:'center'})};
   $('openTreeFromTrain').onclick=()=>nav('treeView');
   $('startSessionPrimary').onclick=startSession;

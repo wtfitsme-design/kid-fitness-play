@@ -134,17 +134,28 @@
     const arrow=step>0?`<path d="M${s[2]+30} ${s[3]-36}Q190 72 ${s[4]-18} ${s[5]-23}" fill="none" stroke="${p[2]}" stroke-width="4" stroke-dasharray="7 6" marker-end="url(#arrow-${key})"/>`:'';
     return `<svg class="motion-svg" viewBox="0 0 340 250" role="img" aria-label="${esc(s[0])}"><defs><linearGradient id="bg-${key}" x1="0" y1="0" x2="0" y2="1"><stop stop-color="${p[1]}"/><stop offset="1" stop-color="#fffdf8"/></linearGradient><marker id="arrow-${key}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="${p[2]}"/></marker></defs><rect x="10" y="10" width="320" height="230" rx="26" fill="url(#bg-${key})"/><path d="M30 211h280" stroke="#b7cdb4" stroke-width="3"/><path d="M40 205q80-24 160 0t140 0" fill="none" stroke="#d8e5cf" stroke-width="5"/>${scene(skill,id,s,p)}${child(s[2],s[3],s[1],p[0])}${arrow}<text x="28" y="40" fill="${p[0]}" font-size="16" font-weight="800" font-family="system-ui">${esc(s[0])}</text></svg>`;
   }
-  function frame(skill,step,leaf){
+  function imageUrl(skill,step,leaf){
+    const asset=leafAsset[`${skill}:${leaf?.id}`];
+    if(asset)return `assets/illustrations/leaves/${asset}-step-${step+1}.webp`;
+    if(leafPrefix[skill]&&leaf?.id)return null;
+    const file=generated[skill];
+    return file?`assets/illustrations/${file}-step-${step+1}.png`:null;
+  }
+  function frame(skill,step,leaf,options={}){
     const prefix=leafPrefix[skill], id=leaf?.id;
     const asset=leafAsset[`${skill}:${id}`];
-    if(asset)return `<div class="generated-motion"><img src="assets/illustrations/leaves/${asset}-step-${step+1}.webp" alt="${esc(leaf?.name||'动作')}第${step+1}步" loading="lazy"></div>`;
+    const file=imageUrl(skill,step,leaf);
+    if(file){
+      const version=window.V2Images?.url||((path)=>path);
+      const full=version(file),preview=options.preview&&asset&&step===0;
+      const src=preview?version(`assets/previews/${asset}-step-1.webp`):full;
+      return `<div class="generated-motion" data-image><img src="${src}" ${preview?`data-fallback="${full}"`:''} alt="${esc(leaf?.name||'动作')}第${step+1}步" width="543" height="724" loading="${options.lazy?'lazy':'eager'}" decoding="async" fetchpriority="${options.lazy?'low':'high'}"></div>`;
+    }
     // Missing leaf assets use the semantic, leaf-specific vector storyboard.
     // This keeps every leaf visually distinct instead of falling back to one
     // shared skill image set.
     if(prefix&&id)return `<div class="generated-motion vector-motion">${svg(skill,leaf,step)}</div>`;
-    const file=generated[skill];
-    if(file)return `<div class="generated-motion"><img src="assets/illustrations/${file}-step-${step+1}.png" alt="${esc(leaf?.name||'动作')}第${step+1}步" loading="lazy"></div>`;
     return svg(skill,leaf,step);
   }
-  window.V2Motion={svg,frame,generated,leafPrefix};
+  window.V2Motion={svg,frame,imageUrl,generated,leafPrefix};
 })();
