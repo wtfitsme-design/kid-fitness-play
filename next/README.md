@@ -14,3 +14,11 @@
 ## 预览
 
 打开 `next/index.html`。页面不依赖构建工具或外部 CDN。
+
+## 图片加载
+
+- 成长树使用保持原尺寸的透明 WebP；首页使用小预览，打开训练或图解时使用原图。
+- 当前图片优先加载，随后最多并行预取两张本次动作的后续图与树图；省流量模式和慢速网络跳过预取。
+- `sw.js` 仅缓存当前目录 `assets/` 内的图片，缓存失败时直接联网加载；脚本和页面继续正常更新。
+- 替换已有图片后，更新 `next-images.js` 中的 `revision`，同时更新 `index.html` 的脚本和样式查询参数，防止命中旧图。若修改缓存规则或清理策略，再更新 `sw.js` 的缓存名称。
+- 使用 Pillow 后可执行 `python3 scripts/optimize-next-images.py` 重建树图与预览；`node --test tests/image-loading.test.cjs` 检查资源与缓存行为。本地服务下打开 `tests/browser-image-cache.html` 可查看实际缓存命中与重复加载情况。
