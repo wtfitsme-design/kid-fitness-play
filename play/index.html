@@ -7,9 +7,9 @@
   <meta name="description" content="挑一个亲子运动游戏，在家或下楼，带爸爸玩出自己的规则。">
   <title>运动探险站 · 亲子小游戏</title>
   <link rel="icon" type="image/svg+xml" href="./compass.svg">
-  <link rel="stylesheet" href="./play.css">
-  <script defer src="./games.js"></script>
-  <script defer src="./app.js"></script>
+  <link rel="stylesheet" href="./play.css?guide=2">
+  <script defer src="./games.js?guide=2"></script>
+  <script defer src="./app.js?guide=2"></script>
 </head>
 <body>
   <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -56,10 +56,14 @@
       </div>
       <div class="section-head"><h2>挑个游戏</h2><button type="button" id="shuffle" class="plain"><svg class="icon"><use href="#i-change"/></svg>换一组</button></div>
       <div class="pair" id="picks"></div>
-      <a href="#library" class="library-link"><span><svg class="icon"><use href="#i-map"/></svg>翻开游戏图鉴</span><span class="library-count"><span id="totalGames"></span><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      <a href="#library/home" class="library-link" id="openLibrary"><span><svg class="icon"><use href="#i-map"/></svg><span id="libraryLinkLabel">翻开在家游戏图鉴</span></span><span class="library-count"><span id="totalGames"></span><svg class="icon"><use href="#i-arrow"/></svg></span></a>
     </section>
     <section id="libraryView" hidden>
       <div class="view-heading"><h1>游戏图鉴</h1></div>
+      <nav class="place-shelves" aria-label="按场地浏览游戏">
+        <a href="#library/home" data-shelf="home"><svg class="icon"><use href="#i-home"/></svg>在家玩</a>
+        <a href="#library/out" data-shelf="out"><svg class="icon"><use href="#i-out"/></svg>下楼玩</a>
+      </nav>
       <div class="library-tools"><label class="search"><svg class="icon"><use href="#i-search"/></svg><input id="search" type="search" maxlength="40" placeholder="找游戏、动作或道具" aria-label="搜索游戏"></label><button id="filterToggle" class="chip" type="button" aria-expanded="false" aria-controls="filters"><svg class="icon"><use href="#i-filter"/></svg>筛选</button></div>
       <div id="filters" class="filter-panel" hidden></div>
       <p id="resultCount" class="result-count" role="status"></p><div id="libraryGrid" class="library-grid"></div>
@@ -76,7 +80,7 @@
     <a data-tab="notes" href="#notes"><svg class="icon"><use href="#i-book"/></svg>探险手记</a>
   </nav>
   <dialog id="gameDialog" aria-labelledby="detailTitle"></dialog>
-  <dialog id="imageDialog" class="image-dialog" aria-label="游戏大图"></dialog>
+  <dialog id="imageDialog" class="image-dialog" aria-labelledby="photoTitle"></dialog>
   <dialog id="noteDialog" class="small-dialog" aria-labelledby="entryTitle"></dialog>
   <dialog id="profileDialog" class="small-dialog" aria-labelledby="profileTitle"></dialog>
   <div id="toast" role="status" aria-live="polite"></div>

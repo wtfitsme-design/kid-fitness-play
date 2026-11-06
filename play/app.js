@@ -1,7 +1,7 @@
 (function fieldApp(){
   'use strict';
-  const { games, groups, sources } = window.PlayField;
-  const byId = new Map(games.map(game => [game.id, game]));
+  const { games, archive, groups, sources } = window.PlayField;
+  const byId = new Map([...games, ...archive].map(game => [game.id, game]));
   const $ = selector => document.querySelector(selector);
   const $$ = selector => Array.from(document.querySelectorAll(selector));
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
@@ -52,8 +52,9 @@
     fn(notebook);
     write('book/'+activeCrew().id,notebook);
   }
-  const state={view:'pick',place:'home',picks:[],deck:[],filterPlace:'all',group:'all',quiet:false,nogear:false,query:'',notesTab:'stories',game:null,stamp:''};
+  const state={view:'pick',place:read('place','home')==='out'?'out':'home',picks:[],deck:[],group:'all',quiet:false,nogear:false,query:'',notesTab:'stories',game:null,stamp:''};
   const detail=$('#gameDialog'), photo=$('#imageDialog'), entry=$('#noteDialog'), profile=$('#profileDialog');
+  let photoIndex=0;
   let toastTimer;
   function message(text) {
     const msg=memoryOnly ? `${text}（当前浏览器只在本次打开期间保留）` : text;
@@ -69,10 +70,10 @@
     return result;
   }
   function deal(reset=false) {
-    const ids=games.filter(g=>g.places.includes(state.place)).map(g=>g.id);
+    const ids=games.filter(g=>g.place===state.place).map(g=>g.id);
     if(reset || !state.picks.length) {
       const favorite=notebook.favs.find(id=>ids.includes(id));
-      const defaults=state.place==='home'?['rescue','mirror']:['tail','chalk'];
+      const defaults=state.place==='home'?['rescue','code']:['tail','ropewave'];
       const fresh=defaults.find(id=>id!==favorite && !notebook.favs.includes(id)) || ids.find(id=>!notebook.favs.includes(id));
       state.picks=[...new Set([favorite || defaults[0],fresh,...defaults,...ids].filter(Boolean))].slice(0,2);
       state.deck=shuffled(ids.filter(id=>!state.picks.includes(id)));
@@ -85,16 +86,32 @@
     }
     renderPicks();
   }
+  function thumbnail(g) {
+    return g.cover || `./assets/${g.id}-small.webp`;
+  }
   function card(g, view, eager=false) {
     const marked=notebook.favs.includes(g.id);
     return `<a class="card" href="#${view}/${g.id}" data-game="${g.id}" aria-label="怎么玩：${g.name}">
-      <div class="card-shot"><img src="./assets/${g.id}-small.webp" width="400" height="267" loading="${eager?'eager':'lazy'}" decoding="async" alt="${g.alt}">
+      <div class="card-shot"><img src="${thumbnail(g)}" width="400" height="267" loading="${eager?'eager':'lazy'}" decoding="async" alt="">
         ${marked?`<span class="spot-heart" aria-label="还想再玩">${icon('heart')}</span>`:''}
       </div><div class="card-caption"><h3>${g.name}</h3><span class="card-arrow">${icon('arrow')}</span><p>${g.hook}</p></div></a>`;
   }
   function renderPicks() {
     $('#picks').innerHTML=state.picks.map(id=>card(byId.get(id),'pick',true)).join('');
     $$('[data-place]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.place===state.place)));
+    $$('[data-shelf]').forEach(link=>{
+      if(link.dataset.shelf===state.place)link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    });
+    for(const link of $$('#openLibrary, [data-tab="library"]')) link.href='#library/'+state.place;
+    $('#libraryLinkLabel').textContent=state.place==='home'?'翻开在家游戏图鉴':'翻开下楼游戏图鉴';
+    $('#totalGames').textContent=games.filter(g=>g.place===state.place).length+' 个玩法';
+  }
+  function setPlace(place) {
+    if(state.place===place)return;
+    state.place=place;
+    write('place',place);
+    deal(true);
   }
   const empty = (title, description, action, attrs, name='compass') =>
     `<div class="empty">${icon(name)}<strong>${title}</strong><p>${description}</p><a class="primary" ${attrs}>${action}${icon('arrow')}</a></div>`;
@@ -102,23 +119,21 @@
     return `<div class="filter-row"><strong>${title}</strong>${Object.entries(opts).map(([id,name])=>`<button type="button" class="chip" data-filter="${key}" data-value="${id}" aria-pressed="${id===val}">${name}</button>`).join('')}</div>`;
   }
   function renderFilters() {
-    $('#filters').innerHTML=filterRow('场地','filterPlace',{all:'都可以',...places},state.filterPlace)
-      +filterRow('想怎么玩','group',{all:'都可以',...groups},state.group)
+    $('#filters').innerHTML=filterRow('想怎么玩','group',{all:'都可以',...groups},state.group)
       +`<div class="filter-row"><strong>随手挑</strong><button class="chip" data-flag="quiet" aria-pressed="${state.quiet}">安静一点</button><button class="chip" data-flag="nogear" aria-pressed="${state.nogear}">不用道具</button></div>`;
-    const on=state.filterPlace!=='all'||state.group!=='all'||state.quiet||state.nogear;
+    const on=state.group!=='all'||state.quiet||state.nogear;
     $('#filterToggle').classList.toggle('in-use',on);
     $('#filterToggle').innerHTML=icon('filter')+(on?'已筛选':'筛选');
   }
-  const optionalGear=new Set(['stars','freeze','drum','book','bridge','trail']);
   function renderLibrary() {
     const q=state.query.trim().toLowerCase();
-    const found=games.filter(g=>(state.filterPlace==='all'||g.places.includes(state.filterPlace))
+    const found=games.filter(g=>g.place===state.place
       &&(state.group==='all'||g.group===state.group) && (!state.quiet||g.quiet)
-      &&(!state.nogear||!g.gear||optionalGear.has(g.id))
-      &&(!q||[g.name,g.hook,g.gear,g.start,g.invent,groups[g.group],...g.places.map(p=>places[p])].join(' ').toLowerCase().includes(q)));
-    $('#resultCount').textContent=`${found.length} 个玩法`;
+      &&(!state.nogear||g.optionalGear)
+      &&(!q||[g.name,g.hook,g.gear,g.invent,groups[g.group],...g.steps.map(s=>s.title+' '+s.text)].join(' ').toLowerCase().includes(q)));
+    $('#resultCount').textContent=`${places[state.place]} · ${found.length} 个玩法`;
     $('#libraryGrid').innerHTML=found.length ? found.map((g,i)=>card(g,'library',i<2)).join('') :
-      `<div class="empty">${icon('search')}<strong>这次没找到合适的玩法</strong><p>换个词，或重新看全部游戏。</p><button class="primary" data-reset>清除筛选</button></div>`;
+      `<div class="empty">${icon('search')}<strong>这个场地没找到合适的玩法</strong><p>换个词，或看看本栏的其他游戏。</p><button class="primary" data-reset>清除筛选</button></div>`;
   }
   function renderJournal() {
     $('#noteOwner').textContent=activeCrew().name+'的收藏和发现，保存在这台设备。';
@@ -130,7 +145,7 @@
     }
     $('#journalContent').innerHTML=notebook.stories.length?`<div class="story-list">${notebook.stories.map(s=>{
       const game=byId.get(s.game), stamp=stamps.find(t=>t.id===s.stamp);
-      return `<article class="story"><a href="#notes/${game.id}" data-game="${game.id}"><img alt="${game.name}" loading="lazy" src="./assets/${game.id}-small.webp"></a><div class="story-body"><strong>${stamp?`${icon(stamp.icon)} ${stamp.label}`:'我的新发现'}</strong>${s.text?`<p>${escape(s.text)}</p>`:''}<a href="#notes/${game.id}" data-game="${game.id}">${game.name} ${icon('arrow','small')}</a></div></article>`;
+      return `<article class="story"><a href="#notes/${game.id}" data-game="${game.id}"><img alt="${game.name}" loading="lazy" src="${thumbnail(game)}"></a><div class="story-body"><strong>${stamp?`${icon(stamp.icon)} ${stamp.label}`:'我的新发现'}</strong>${s.text?`<p>${escape(s.text)}</p>`:''}<a href="#notes/${game.id}" data-game="${game.id}">${game.name} ${icon('arrow','small')}</a></div></article>`;
     }).join('')}</div>`:empty('第一笔，会是他的什么发现？','玩过以后，可以把孩子自己想出的规则或一句原话记在这里。','去找个玩法','href="#pick"','book');
   }
   function fold(title, name, body, cls='') {
@@ -141,16 +156,32 @@
     const on=notebook.favs.includes(state.game.id);
     b.setAttribute('aria-pressed',String(on)); b.innerHTML=icon('heart')+(on?'已收进还想玩':'下次还想玩');
   }
+  function stepImage(game,index) {
+    return `./steps/${game.id}-${index+1}.webp`;
+  }
+  function standardPlay(game) {
+    return `<section class="standard" aria-labelledby="standardTitle"><div class="standard-heading"><h3 id="standardTitle">标准玩法</h3><button type="button" class="guide-link" data-enlarge="0">${icon('expand','small')}逐步看大图</button></div>
+      <ol class="step-list">${game.steps.map((step,index)=>`<li>
+        <button type="button" class="step-shot" data-enlarge="${index}" aria-label="放大第${index+1}步，${step.title}"><img src="${stepImage(game,index)}" alt="${step.alt}" decoding="async"></button>
+        <div class="step-copy"><h4><span class="step-number" aria-hidden="true">${index+1}</span>${step.title}</h4><p>${step.text}</p></div>
+      </li>`).join('')}</ol></section>`;
+  }
+  function originalPlay(game) {
+    const next=byId.get(game.replacement);
+    return `<p class="how">${game.start}</p>
+      <button type="button" class="art-open legacy-shot" data-enlarge="0" aria-label="放大原玩法插图"><img src="./assets/${game.id}.webp" alt="${game.alt}"><span class="peek">${icon('expand')}看大图</span></button>
+      <a class="mini-link" href="#${state.view}/${next.id}" data-game="${next.id}">试试${next.name}${icon('arrow','small')}</a>`;
+  }
   function openDetail(game) {
     state.game=game;
     const source=sources[game.ref];
-    detail.innerHTML=`<div class="sheet-head"><span>${icon(groupIcons[game.group])}${groups[game.group]}</span><button class="close-btn" type="button" data-close="detail" aria-label="关闭玩法">${icon('close')}</button></div>
-      <div class="sheet-scroll"><button type="button" class="art-open" data-enlarge aria-label="放大${game.name}的动作插画"><img src="./assets/${game.id}.webp" alt="${game.alt}" decoding="async"><span class="peek">${icon('expand')}看大图</span></button>
-      <div class="detail-copy"><h2 id="detailTitle">${game.name}</h2><p class="gear">${game.places.map(p=>places[p]).join(' / ')}　·　${game.gear||'不用道具'}</p>
-      <p class="invite">“${game.invite}”</p><p class="how">${game.start}</p>
+    const where=game.steps?places[game.place]:'原玩法';
+    detail.innerHTML=`<div class="sheet-head"><span>${icon(groupIcons[game.group])}${where} · ${groups[game.group]}</span><button class="close-btn" type="button" data-close="detail" aria-label="关闭玩法">${icon('close')}</button></div>
+      <div class="sheet-scroll"><div class="detail-copy"><h2 id="detailTitle">${game.name}</h2><p class="gear">${game.gear||'不用道具'}</p>
+      ${game.steps?standardPlay(game):originalPlay(game)}
       ${fold('玩法由你定','spark',game.invent,'invent')}
       ${fold('想轻松一点','leaf',game.easier)}
-      ${fold('给陪玩的你','book',`${game.notice}<br>动作参考：<a href="${source[1]}" target="_blank" rel="noopener">${source[0]}</a>。玩法已按家庭场景改编。`)}
+      ${fold('给陪玩的你','book',`${game.notice}<br><a href="${source[1]}" target="_blank" rel="noopener">${source[0]}</a>`)}
       </div></div><div class="detail-status" id="detailFeedback" role="status"></div><div class="sheet-actions"><button type="button" class="secondary" id="saveFav"></button><button type="button" class="primary" data-add-note>${icon('edit')}记下新发现</button></div>`;
     syncFavorite();
     if(!detail.open)detail.showModal();
@@ -158,16 +189,34 @@
   }
   function closeGame() {
     if(history.state?.fieldFrom===state.view){history.back();}
-    else {history.replaceState(null,'',`#${state.view}`);route();}
+    else {history.replaceState(null,'',state.view==='library'?'#library/'+state.place:`#${state.view}`);route();}
   }
   function openGame(id) {
     if(!byId.has(id))return;
     history.pushState({fieldFrom:state.view},'',`#${state.view}/${id}`);
     route();
   }
-  function showPhoto() {
+  function updatePhoto(index) {
+    const g=state.game;
+    const count=g.steps?.length||1;
+    if(index<0||index>=count)return;
+    photoIndex=index;
+    const step=g.steps?.[index],img=$('#photoImage');
+    img.alt=step?.alt||g.alt;
+    img.src=step?stepImage(g,index):`./assets/${g.id}.webp`;
+    $('#photoCaption').textContent=step?step.text:g.start;
+    $('#photoStep').textContent=step?`第 ${index+1} 步 · ${step.title}`:'原玩法';
+    $('#photoCount').textContent=`${index+1} / ${count}`;
+    $('#photoPrev').disabled=index===0;
+    $('#photoNext').disabled=index===count-1;
+    $('#photoControls').hidden=count===1;
+  }
+  function showPhoto(index) {
     const g=state.game; if(!g)return;
-    photo.innerHTML=`<div class="lightbox-top"><span>${g.name}</span><button type="button" class="close-btn" data-close="photo" aria-label="关闭大图">${icon('close')}</button></div><img src="./assets/${g.id}.webp" alt="${g.alt}">`;
+    photo.innerHTML=`<div class="lightbox-top"><h2 id="photoTitle">${g.name}</h2><button type="button" class="close-btn" data-close="photo" aria-label="关闭大图">${icon('close')}</button></div>
+      <figure class="photo-frame"><img id="photoImage" alt=""><figcaption aria-live="polite"><strong id="photoStep"></strong><p id="photoCaption"></p></figcaption></figure>
+      <div id="photoControls" class="photo-controls"><button type="button" id="photoPrev">${icon('arrow','back-arrow')}上一步</button><span id="photoCount"></span><button type="button" id="photoNext">下一步${icon('arrow')}</button></div>`;
+    updatePhoto(index);
     photo.showModal();
   }
   function openEntry() {
@@ -197,12 +246,17 @@
   function route() {
     const [part,id]=location.hash.slice(1).split('/');
     const view=['pick','library','notes'].includes(part)?part:'pick';
-    const changed=view!==state.view; state.view=view;
+    const shelf=view==='library' && (id==='home'||id==='out');
+    const game=shelf?null:byId.get(id);
+    const nextPlace=shelf?id:(view!=='notes'&&game?.place);
+    const changed=view!==state.view || Boolean(nextPlace&&nextPlace!==state.place);
+    state.view=view;
+    if(nextPlace)setPlace(nextPlace);
     $('#pickView').hidden=view!=='pick';$('#libraryView').hidden=view!=='library';$('#notesView').hidden=view!=='notes';
     $$('[data-tab]').forEach(link=>{if(link.dataset.tab===view)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
-    if(id&&byId.has(id)) {
+    if(game) {
       if(changed)refreshBase();
-      if(state.game?.id!==id||!detail.open){if(entry.open)entry.close();if(photo.open)photo.close();openDetail(byId.get(id));}
+      if(state.game?.id!==id||!detail.open){if(entry.open)entry.close();if(photo.open)photo.close();openDetail(game);}
     } else {
       if(photo.open)photo.close();
       if(entry.open)entry.close();
@@ -218,15 +272,17 @@
       if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
       e.preventDefault();openGame(t.dataset.game);return;
     }
-    if(t.dataset.place){state.place=t.dataset.place;deal(true);return;}
+    if(t.dataset.place){setPlace(t.dataset.place);return;}
     if(t.id==='shuffle'){deal();message('换了一组游戏');return;}
     if(t.id==='filterToggle'){const p=$('#filters');p.hidden=!p.hidden;t.setAttribute('aria-expanded',String(!p.hidden));return;}
     if(t.dataset.filter){state[t.dataset.filter]=t.dataset.value;renderFilters();renderLibrary();return;}
     if(t.dataset.flag){state[t.dataset.flag]=!state[t.dataset.flag];renderFilters();renderLibrary();return;}
-    if(t.hasAttribute('data-reset')){Object.assign(state,{group:'all',filterPlace:'all',quiet:false,nogear:false,query:''});$('#search').value='';renderFilters();renderLibrary();return;}
+    if(t.hasAttribute('data-reset')){Object.assign(state,{group:'all',quiet:false,nogear:false,query:''});$('#search').value='';renderFilters();renderLibrary();return;}
     if(t.dataset.noteTab){state.notesTab=t.dataset.noteTab;renderJournal();return;}
     if(t.dataset.close){if(t.dataset.close==='detail')closeGame();else ({photo,entry,profile})[t.dataset.close].close();return;}
-    if(t.hasAttribute('data-enlarge')){showPhoto();return;}
+    if(t.hasAttribute('data-enlarge')){showPhoto(Number(t.dataset.enlarge));return;}
+    if(t.id==='photoPrev'){updatePhoto(photoIndex-1);return;}
+    if(t.id==='photoNext'){updatePhoto(photoIndex+1);return;}
     if(t.id==='saveFav'&&state.game){const id=state.game.id;changeBook(book=>{book.favs=book.favs.includes(id)?book.favs.filter(k=>k!==id):[id,...book.favs];});syncFavorite();message(notebook.favs.includes(id)?'收好了，下回接着玩。':'已从收藏移出');return;}
     if(t.hasAttribute('data-add-note')){openEntry();return;}
     if(t.dataset.stamp){state.stamp=state.stamp===t.dataset.stamp?'':t.dataset.stamp;$$('[data-stamp]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.stamp===state.stamp)));$('#entryError').textContent='';return;}
@@ -247,6 +303,21 @@
     }
   });
   $('#search').addEventListener('input',e=>{state.query=e.target.value;renderLibrary();});
+  photo.addEventListener('keydown',e=>{
+    if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+    e.preventDefault();updatePhoto(photoIndex+(e.key==='ArrowLeft'?-1:1));
+  });
+  let swipeStart=null;
+  photo.addEventListener('touchstart',e=>{
+    swipeStart=e.touches.length===1 ? e.touches[0] : null;
+  },{passive:true});
+  photo.addEventListener('touchend',e=>{
+    if(!swipeStart)return;
+    const end=e.changedTouches[0], dx=end.clientX-swipeStart.clientX, dy=end.clientY-swipeStart.clientY;
+    swipeStart=null;
+    if(Math.abs(dx)>48 && Math.abs(dx)>Math.abs(dy)*2)updatePhoto(photoIndex+(dx>0?-1:1));
+  },{passive:true});
+  photo.addEventListener('touchcancel',()=>{swipeStart=null;});
   detail.addEventListener('cancel',e=>{e.preventDefault();closeGame();});
   for(const d of [detail,photo,entry,profile])d.addEventListener('click',e=>{
     if(e.target!==d)return;
@@ -261,7 +332,6 @@
     // Keep an open tab with its current explorer. Newly opened tabs use the last selection.
     notebook=readNotes();renderProfiles();refreshBase();syncFavorite();
   });
-  $('#totalGames').textContent=`${games.length} 种玩法`;
   renderProfiles();renderFilters();deal(true);route();
   if('serviceWorker' in navigator&&window.isSecureContext){
     window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(()=>{}));
