@@ -1,9 +1,9 @@
 'use strict';
 const prefix = 'kid-playfield-assets-';
-const current = prefix + '1';
+const current = prefix + 'guide-2';
 const base = self.registration.scope;
 const local = name => new URL(name, base).href;
-const shell = ['index.html', 'play.css', 'app.js', 'games.js', 'compass.svg'].map(local);
+const shell = ['index.html', 'play.css?guide=2', 'app.js?guide=2', 'games.js?guide=2', 'compass.svg'].map(local);
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(current).then(cache => cache.addAll(shell)).then(() => self.skipWaiting()));
 });
@@ -18,9 +18,9 @@ self.addEventListener('fetch', event => {
   const req = event.request;
   if(req.method !== 'GET' || !req.url.startsWith(base)) return;
   const url = new URL(req.url);
-  const asset = url.href.startsWith(local('assets/')) && url.pathname.endsWith('.webp');
+  const asset = (url.href.startsWith(local('assets/')) || url.href.startsWith(local('steps/'))) && url.pathname.endsWith('.webp');
   const navigation = req.mode === 'navigate' && [local(''),local('index.html')].includes(url.origin+url.pathname);
-  if(!asset && !navigation && !shell.includes(url.origin+url.pathname)) return;
+  if(!asset && !navigation && !shell.includes(url.href)) return;
   const key = navigation ? local('index.html') : req;
   event.respondWith((async () => {
     let cache;
