@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7faf5">
+  <meta name="description" content="挑一个亲子运动游戏，在家或下楼，带爸爸玩出自己的规则。">
+  <title>运动探险站 · 亲子小游戏</title>
+  <link rel="icon" type="image/svg+xml" href="./compass.svg">
+  <link rel="stylesheet" href="./play.css">
+  <script defer src="./games.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m16.5 7.5-3.2 5.8-5.8 3.2 3.2-5.8z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 5 6-2 6 3 6-2v15l-6 2-6-3-6 2zM9 3v15m6-12v15"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h14v16H6a2 2 0 0 1-2-2V6a2 2 0 0 1 1-2ZM5 17h14M9 4v9l2.5-1.5L14 13V4"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m2.5 11 9.5-8 9.5 8M5 9.5V21h14V9.5M10 21v-7h4v7"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="m8 5 5-3 8 14H3L8 5Zm1 0 2 4 2-2M2 21c4-2 7 2 11 0s6-2 9-1"/></symbol>
+    <symbol id="i-change" viewBox="0 0 24 24"><path d="M3 7h3c4 0 6 10 10 10h5m-3-3 3 3-3 3M3 17h3c1.5 0 2.8-1.5 4-3.5M14 8.5c.8-1 1.6-1.5 3-1.5h4m-3-3 3 3-3 3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.5 5.4a5 5 0 0 0-7.1 0L12 6.9l-1.4-1.5a5 5 0 0 0-7.1 7.1L12 21l8.5-8.5a5 5 0 0 0 0-7.1Z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14.5 5.5 4 4M4 20l4.8-1.1L20 7.7a2.8 2.8 0 0 0-4-4L4.8 15Z"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.3"/><path d="M5 20v-2a7 5 0 0 1 14 0v2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M3 9V3h6m6 0h6v6m0 6v6h-6m-6 0H3v-6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 6h7m5 0h6M3 18h12m4 0h2"/><circle cx="12.5" cy="6" r="2.4"/><circle cx="17" cy="18" r="2.4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m13 3 1.9 6.1L21 11l-6.1 1.9L13 19l-1.9-6.1L5 11l6.1-1.9L13 3Zm-8 12 .8 2.2L8 18l-2.2.8L5 21l-.8-2.2L2 18l2.2-.8z"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 22V3c5-3 8 3 14 0v10c-6 3-9-3-14 0"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C0 8 10 3 21 3c0 11-5 18-14 15M4 21l10-11"/></symbol>
+    <symbol id="i-foot" viewBox="0 0 24 24"><path d="M7 13c-1 1-3 1-3 4s3 4 4 1l.5-3M16 11c1 1 3 1 3 4s-3 4-4 1l-.5-3"/><ellipse cx="8" cy="8" rx="2.4" ry="4" transform="rotate(12 8 8)"/><ellipse cx="15" cy="6" rx="2.2" ry="3.5" transform="rotate(-15 15 6)"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+  </svg>
+  <header class="topbar"><div class="wrap top-inner">
+    <a class="brand" href="#pick" aria-label="运动探险站首页"><img src="./compass.svg" width="40" height="40" alt=""><span>运动探险站</span></a>
+    <nav class="desk-nav" aria-label="主导航">
+      <a data-tab="pick" href="#pick"><svg class="icon"><use href="#i-compass"/></svg>挑游戏</a>
+      <a data-tab="library" href="#library"><svg class="icon"><use href="#i-map"/></svg>游戏图鉴</a>
+      <a data-tab="notes" href="#notes"><svg class="icon"><use href="#i-book"/></svg>探险手记</a>
+    </nav>
+    <button id="profileToggle" class="profile-chip" type="button" aria-haspopup="dialog"><svg class="icon"><use href="#i-person"/></svg><span id="profileLabel">探险员</span><svg class="icon small"><use href="#i-chevron"/></svg></button>
+  </div></header>
+  <main class="wrap" id="main">
+    <section id="pickView">
+      <div class="hero">
+        <picture><source media="(max-width:600px)" srcset="./assets/cover-mobile.webp"><img src="./assets/cover.webp" fetchpriority="high" alt="男孩和爸爸在公园小路上结伴出发"></picture>
+        <div class="hero-copy"><h1><span>这次，</span><span>去哪玩？</span></h1>
+          <div class="place-pick" role="group" aria-label="推荐游戏的场地">
+            <button type="button" data-place="home" aria-pressed="true"><svg class="icon"><use href="#i-home"/></svg>在家玩</button>
+            <button type="button" data-place="out" aria-pressed="false"><svg class="icon"><use href="#i-out"/></svg>下楼玩</button>
+          </div>
+        </div>
+      </div>
+      <div class="section-head"><h2>挑个游戏</h2><button type="button" id="shuffle" class="plain"><svg class="icon"><use href="#i-change"/></svg>换一组</button></div>
+      <div class="pair" id="picks"></div>
+      <a href="#library" class="library-link"><span><svg class="icon"><use href="#i-map"/></svg>翻开游戏图鉴</span><span class="library-count"><span id="totalGames"></span><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+    </section>
+    <section id="libraryView" hidden>
+      <div class="view-heading"><h1>游戏图鉴</h1></div>
+      <div class="library-tools"><label class="search"><svg class="icon"><use href="#i-search"/></svg><input id="search" type="search" maxlength="40" placeholder="找游戏、动作或道具" aria-label="搜索游戏"></label><button id="filterToggle" class="chip" type="button" aria-expanded="false" aria-controls="filters"><svg class="icon"><use href="#i-filter"/></svg>筛选</button></div>
+      <div id="filters" class="filter-panel" hidden></div>
+      <p id="resultCount" class="result-count" role="status"></p><div id="libraryGrid" class="library-grid"></div>
+    </section>
+    <section id="notesView" hidden><div class="view-heading"><h1>探险手记</h1><p id="noteOwner"></p></div>
+      <div id="noteTabs" class="note-tabs" role="group" aria-label="手记内容"><button type="button" data-note-tab="stories" aria-pressed="true">我的发现</button><button type="button" data-note-tab="favs" aria-pressed="false">还想再玩</button></div>
+      <div id="journalContent"></div>
+    </section>
+    <noscript><p>请在浏览器开启 JavaScript，再来挑游戏。</p></noscript>
+  </main>
+  <nav class="mobile-nav" aria-label="底部导航">
+    <a data-tab="pick" href="#pick"><svg class="icon"><use href="#i-compass"/></svg>挑游戏</a>
+    <a data-tab="library" href="#library"><svg class="icon"><use href="#i-map"/></svg>游戏图鉴</a>
+    <a data-tab="notes" href="#notes"><svg class="icon"><use href="#i-book"/></svg>探险手记</a>
+  </nav>
+  <dialog id="gameDialog" aria-labelledby="detailTitle"></dialog>
+  <dialog id="imageDialog" class="image-dialog" aria-label="游戏大图"></dialog>
+  <dialog id="noteDialog" class="small-dialog" aria-labelledby="entryTitle"></dialog>
+  <dialog id="profileDialog" class="small-dialog" aria-labelledby="profileTitle"></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
